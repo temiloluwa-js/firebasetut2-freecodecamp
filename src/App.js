@@ -7,30 +7,31 @@ import { signOut } from "firebase/auth";
 import Login from "./Login";
 
 function App() {
-  const [isAuth, setIsAuth] = useState(false);
-
-  const signOut = () => {
+  const [isAuth, setisAuth] = useState(false);
+  const signUserOut = () => {
     signOut(auth).then(() => {
       localStorage.clear();
-      setIsAuth(false);
-      window.location.pathname = "login";
     });
   };
-
   return (
-    <div>
-      {isAuth && <button onClick={signOut}>Sign Out</button>}
-      <Router>
+    <Router>
+      <div>
         <nav>
-          <Routes>
-            <Route path="/" element={<Home />}></Route>
-            <Route path="/login" element={<Login setIsAuth={setIsAuth}/>}></Route>
-            <Route path="/createpost"></Route>
-          </Routes>
-          {/* <Link to="/createpost">Create Post</Link> */}
+          <Link to="/createpost">Create Post</Link>
+          <Link to="/login">Login</Link>
+          {!isAuth && <button onClick={signUserOut}>Sign Out</button>}
         </nav>
-      </Router>
-    </div>
+      </div>
+      <Routes>
+        <Route path="/login" element={<Login />}>
+          Login
+        </Route>
+        <Route path="/" element={<Home />}>
+          Home
+        </Route>
+        {/* <Route path='/login' element={</>}>Create Post</Route> */}
+      </Routes>
+    </Router>
   );
 }
 
