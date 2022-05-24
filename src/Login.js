@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import {app, database} from './firebase-config'
-import { collection, addDoc } from 'firebase/firestore'
-
+import { collection, addDoc, getDocs  } from 'firebase/firestore'
 
 const Login = () => {
+
+    const collectionRef = collection(database, "users")
 
     const googleProvider = new GoogleAuthProvider()
     const auth = getAuth()
@@ -13,9 +14,9 @@ const Login = () => {
   
     const handleSubmit = (e) => {
         e.preventDefault()
-        signInWithEmailAndPassword(auth, email, password)
-        .then(response => console.log(response.user))
-        .catch(err => console.log(err))
+        addDoc(collectionRef, {
+            email, password
+        })
     } 
 
     const signinWithGoogle = () => {
