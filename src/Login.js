@@ -1,20 +1,32 @@
 import React, { useState } from "react";
-import {getAuth, createUserWithEmailAndPassword} from "firebase/auth"
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 import { useNavigate } from "react-router-dom";
+const auth = getAuth();
+const [email, setEmail] = useState("");
+const [password, setPassword] = useState("");
 const Login = () => {
-  // const 
-  return <div>
-    <form >
-      <label htmlFor="email">Email</label>
-      <input type="email" />
+  const navigate = useNavigate()
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((response) => console.log(response.user))
+      .then(navigate('/'))
+      .catch((err) => console.log(err.message));
+  };
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="email">Email</label>
+        <input type="email" onChange={(e) => setEmail(e.target.value)}/>
 
-      <label htmlFor="password">Password</label>
-      <input type="password" />
+        <label htmlFor="password">Password</label>
+        <input type="password"  onChange={(e) => setPassword(e.target.value)}/>
 
-      <button type="submit">Submit</button>
-    </form>
-  </div>;
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  );
 };
 
 export default Login;
