@@ -3,7 +3,6 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { app, database } from "./firebase-config";
 import { useNavigate } from "react-router-dom";
 const auth = getAuth();
-import { updateDoc, doc } from "firebase/firestore";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -29,7 +28,7 @@ const Register = () => {
         <button type="submit">Submit</button>
       </form>
 
-      <button onClick={updateData}></button>
+
     </div>
   );
 };
