@@ -4,13 +4,16 @@ import "./App.css";
 import Home from "./Home";
 import Register from "./Register";
 import Login from "./Login";
+import AddImage from "./AddImage";
 
 function App() {
   return (
     <div>
       <Router>
         <Routes>
+
           <Route path="/" element={<Home />}></Route>
+          <Route path='/addimage' element={<AddImage/>}></Route>
           <Route path="/register" element={<Register />}></Route>
           <Route path="/login" element={<Login />}></Route>
         </Routes>
